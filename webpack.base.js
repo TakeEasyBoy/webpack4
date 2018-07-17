@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 分离 csss插件   "extract-text-webpack-plugin": "^4.0.0-beta.0", 默认 yarn add extract-text-webpack-plugin安装的版本是 3.0.2不支持webpack4.0.0+
@@ -38,8 +39,23 @@ module.exports = {
             template:'./src/index.html'
         }),
         // new ExtractTextPlugin("style.css")  等同于
-        new ExtractTextPlugin("style.css")
+        new ExtractTextPlugin("style.css"),
     ],
+    // commonchunkplugin被废弃
+    optimization: {
+        runtimeChunk: {
+            name: "manifest"
+        },
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
+    },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
