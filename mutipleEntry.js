@@ -11,14 +11,8 @@ function getView(globalPath){
             extname = path.extname(entry);
             basename = path.basename(entry,extname);
             pathname = path.join(dirname,basename)
-            if(extname === '.html'){
-                entries[pathname] = entry
-            }else if(extname ==='.js'){
-                entries[basename] = entry;
-            }
+            entries[basename] = entry
         })
     return entries;
 }
 module.exports = getView;
-console.log(getView('./src/*.js'));
-console.log(getView('./src/*.html'));

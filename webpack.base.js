@@ -4,8 +4,30 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 分离 csss插件   "extract-text-webpack-plugin": "^4.0.0-beta.0", 默认 yarn add extract-text-webpack-plugin安装的版本是 3.0.2不支持webpack4.0.0+
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-import getView from './mutipleEntry'
-let entries = getView('./src/*.js')
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const getView =require('./mutipleEntry.js')
+let entries = getView('./src/js/*.js')
+let htmls = getView('./src/views/*.html')
+let plugins = [];;
+console.log(htmls);
+for (const key in htmls) {
+    let ele = htmls[key]
+    plugins.push(
+        new HtmlWebpackPlugin({
+            filename:`${key}.html`,
+            title:"production",
+            template:ele,
+            chunks:[`${key}`],
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
+                // more options:
+                // https://github.com/kangax/html-minifier#options-quick-reference
+            },
+        })
+    )
+}
 module.exports = {
     entry: entries,
     module: {
@@ -33,19 +55,20 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
-        new HtmlWebpackPlugin({
-            title: 'Production',
-            // 提供一个模板html文件
-            template:'./src/index.html'
-        }),
+        ...plugins,
         // new ExtractTextPlugin("style.css")  等同于
-        new ExtractTextPlugin("style.css"),
+        new ExtractTextPlugin({
+            filename:"css/[name].min.css",
+        }),
     ],
     // commonchunkplugin被废弃
     optimization: {
         runtimeChunk: {
             name: "manifest"
         },
+        minimizer:[
+            new OptimizeCSSAssetsPlugin({})
+        ],
         splitChunks: {
             cacheGroups: {
                 commons: {
@@ -57,7 +80,8 @@ module.exports = {
         }
     },
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: 'js/[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath:'/dist/'
     }
 };

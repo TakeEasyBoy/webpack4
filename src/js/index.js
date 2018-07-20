@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import './styles/index.css';
-import printMe from './print'
+import '../styles/index.css';
 function component() {
     var element = document.createElement('div');
     var btn = document.createElement('button');
