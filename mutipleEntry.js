@@ -1,6 +1,5 @@
 const path = require('path');
 const glob = require('glob');
-// console.log(glob.sync('./src/*.js'));
 function getView(globalPath){
     let files = glob.sync(globalPath);
     let entries = {},
