@@ -1,5 +1,4 @@
 import 'assets/css/iconfont.css'
-import 'assets/css/bootstrap.css'
 import 'assets/css/custom.css'
 import 'assets/sass/index.scss'
 

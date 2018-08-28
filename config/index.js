@@ -9,7 +9,7 @@ module.exports = {
   build: {
     prodEnv: require('./prod.env'),
     testEnv: require('./test.env'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true,

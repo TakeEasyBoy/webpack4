@@ -15,7 +15,7 @@ for (const key in htmls) {
             filename: `${key}.html`,
             title: "production",
             template: ele,
-            chunks: "all",
+            chunks: ['vendor','manifest',`${key}`],//只引入需要的模块
             inject: true,
             minify: {
                 removeComments: true,
@@ -51,6 +51,20 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            },
+            {
+                test: /\.(scss|sass)$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ["css-loader", "sass-loader"]
+                })
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
@@ -84,7 +98,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: "static/css/[name].min.css",
+            filename: "static/css/[name].[hash:8].min.css",
         }),
         ...plugins
     ],

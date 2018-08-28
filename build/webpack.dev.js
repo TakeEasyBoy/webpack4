@@ -20,7 +20,4 @@ module.exports = merge(baseWebpackConfig, {
       }),
   ],
   devtool: 'inline-source-map',
-  module:{
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
-  },
 });
