@@ -1,0 +1,81 @@
+@import './variables';
+@import './mixin.scss';
+// 修改elment默认样式
+.claims-info{
+	.el-dialog__header{
+		padding: 20px 20px;
+		border: 1px solid #ccc;
+	}
+	.el-dialog__title{
+		@include sc(16px,#666);
+		font-weight: bold;
+	}
+}
+//更改element tab标签页的默认样式
+.el-tabs__nav-wrap {
+    padding-left: 20px
+}
+
+//更改每个选项的宽度和字体样式，以及hover样式
+.el-tabs--card>.el-tabs__header .el-tabs__item {
+    width: 120px;
+    text-align: center;
+    &:hover {
+        color: $baseColor;
+    }
+}
+
+//更改选中状态的样式
+.el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
+    background-color: $baseColor;
+    color: #fff;
+}
+
+//
+.el-button--primary span {
+    color: #fff;
+}
+
+//更改element默认样式tab标签页 end
+//列表表头样式
+.el-table th {
+    background-color: #FAFAFA;
+}
+.el-table .cell{
+	color:#666;
+	text-align: center;
+}
+.el-table--border th {
+    // border-right: none;
+}
+
+// 列表表头样式 end
+// 修改tab标签页的margin
+.el-tabs__header {
+    margin: 0;
+}
+
+// 修改tab标签页的margin end
+
+/*
+*修改流程管理markdown  li的样式
+*/
+
+.md-content {
+    ol {
+        li {
+            list-style: decimal inside
+        }
+    }
+    ul {
+        li {
+            list-style: disc inside;
+        }
+    }
+}
+
+.el-header{
+	padding: 0;
+}
+
+@import './media.scss';
